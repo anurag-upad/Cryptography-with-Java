@@ -1,0 +1,54 @@
+									Playfair Cipher (https://en.wikipedia.org/wiki/Playfair_cipher)
+
+The Playfair cipher is a manual symmetric encryption technique and was the first digraph substitution cipher. The scheme was invented in 1854 by Charles Wheatstone, but bears the name of Lord Playfair who promoted the use of the cipher.
+
+The Playfair cipher uses a 5 by 5 table containing each letter in the English alphabet exactly once (except ‘J’ which is missing). The table constitutes the encryption key. To more easily remember the table, it is typically generated from a key phrase. First fill in the spaces in an empty table with the letters of the key phrase - dropping spaces, dropping duplicate letters and ignoring any subsequent same characters, then fill the remaining spaces with the rest of the letters of the alphabet in order. The key phrase is written in the top rows of the table, from left to right. For instance, if the key phrase is “playfair example”, the encryption key becomes
+
+P L A Y F
+I R E X M
+B C D G H
+J K N O S
+T U V W Z
+
+To encrypt a message, one would remove all spaces, convert all letters uppercase and then break the message into digraphs (groups of 2 letters) such that, for example, “Hello World” becomes “HE LL OW OR LD”. Then map them out on the key table, and apply the rule below that matches the letter combination:
+
+1. If the letters are not on the same row or column, replace them with the letters on the same row respectively but at the other pair of corners of the rectangle defined by the original pair. The order is important – the first letter of the encrypted pair is the one that lies on the same row as the first letter of the plaintext pair. With the table above, the digraph ‘KM’ would be encrypted ‘SR’.
+
+2. If the letters appear on the same row of your table, replace them with the letters to their immediate right respectively (wrapping around to the left side of the row if a letter in the original pair was on the right side of the row). With the table above, the digraph ‘CH’ would be encrypted ‘DB’.
+
+3. If the letters appear on the same column of your table, replace them with the letters immediately below respectively (wrapping around to the top side of the column if a letter in the original pair was on the bottom side of the column). With the table above, the digraph ‘VA’ would be encrypted ‘AE’.
+
+4. If digraph is "XX", always replace it with "YY".
+5. Replace all occurences of 'J' with 'I'.
+6. If both letters are the same (or only one letter is left), add an ‘X’ after the first letter. Encrypt the new pair and continue (note that this changes all the remaining digraphs).
+
+Write a program that reads key phrases and plaintexts to encrypt, and outputs the encrypted text.
+
+Input
+The input contains a number n, followed by a keyphrase. Then it is followed by n lines of text to encrypt which will have 1 - 1000 characters, inclusive. Each character can be a-z or A-Z or a space character. Neither line starts or ends with a space.
+
+Output
+The output should be lines containing the encrypted text in new lines, in upper case. There should be a space after each set of texts to encrypt.
+
+For example:
+Sample Input:
+4
+ThisIsATest
+AQuickBrownFox
+JumpedOverTheLazyDogs
+Playfair ciphers are fun
+Hooray for cryptology
+2
+Just another example
+Meet me at eight o clock
+Signed Agent Double O Eight
+0
+		
+Sample Output:
+IUQABLDPPVUNQV
+AQKRBFVTDOHICGFASMVOIY
+QKSZNFSQLCWBDOATODNZLZ
+TPPUSZEUQDYSOHQGVOZY
+			
+LOLELOIANTFEUEGXNDCB
+TUCEOGTKROUGMOXBRHNTFEIL
